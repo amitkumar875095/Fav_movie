@@ -1,9 +1,27 @@
 import React from "react";
-import {data} from '../data'
+ import {data} from '../data'
 import Navbar from './Navbar'
 import MovieCard from './MovieCard'
-function App() {
-  console.log();
+class  App extends React.Component {
+ componentDidMount(){
+    //make api call 
+    //dispactch action
+    console.log("hii");
+    const {store} = this.props;
+    store.subscribe(()=>{
+      console.log("updated");
+      this.forceUpdate();
+    })
+    
+       store.dispatch({
+        type : "ADD_MOVIES",
+        movies : data,
+       });
+       console.log(store.getState());
+ }
+  render(){
+    console.log("render");
+    const data = this.props.store.getState();
   return (
     <div className="App">
      <Navbar />
@@ -18,12 +36,12 @@ function App() {
          </div>
     
     
-    {  data.map( (movie) => (
-     <MovieCard movie = {movie}/>) 
+    {  data.map( (movie,index) => (
+     <MovieCard movie = {movie} key = {index}/>) 
       )}   
      </div>
     </div>
   );
-}
+}}
 
 export default App;
