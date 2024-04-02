@@ -1,9 +1,35 @@
 import React from "react";
+import {addFavMovies,removeFavMovies} from "../actions"
 class MovieCard extends React.Component{
+    handleFavMovie = (movie)=>{
+        const {store} = this.props.store;
+        console.log(store);
+    
+          store.dispatch(addFavMovies(movie));
+          console.log(store.getState());
+          
+    }
+    handleUnFavMovie = (movie)=>{
+        const {store} = this.props.store;
+        console.log(store);
+    
+          store.dispatch(removeFavMovies(movie));
+          console.log(store.getState());
+    }
+    isfav = () =>{
+        const movie = this.props.movie;
+        const {fav} = this.props.store.store.getState();
+        const index = fav.indexOf(movie);
+        console.log("fav ",fav,index);
+        if(index==-1){
+            return false;
+        }
+        return true;
+    }
  render(){
       const {Poster,Title,Plot,Ratings} = this.props.movie;
-     console.log(Ratings);
-  
+      const {fav} = this.props.store.store.getState();
+      
     return (
         <div className="movie-cart">
            <div className="movie-left">
@@ -16,7 +42,8 @@ class MovieCard extends React.Component{
                 {Ratings[0].Value} 
             </div>
             
-                <button>Favourite button</button>
+              { !this.isfav() ? <button onClick={()=>{this.handleFavMovie(this.props.movie)}} className={`tab `}>Favourite button</button> :
+                 <button onClick={()=>{this.handleUnFavMovie(this.props.movie)}}>UnFavourite button</button>}
             
            </div>
         </div>

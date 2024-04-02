@@ -121,3 +121,6 @@ body {
 .tab:hover{
   background-color: #f1f1f1;
 }
+.active-tab{
+  background-color: blue;
+}
