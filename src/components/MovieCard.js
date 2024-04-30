@@ -18,7 +18,7 @@ class MovieCard extends React.Component{
     }
     isfav = () =>{
         const movie = this.props.movie;
-        const {fav} = this.props.store.store.getState();
+        const {fav} = this.props.store.store.getState().movies;
         const index = fav.indexOf(movie);
         console.log("fav ",fav,index);
         if(index==-1){
@@ -28,7 +28,9 @@ class MovieCard extends React.Component{
     }
  render(){
       const {Poster,Title,Plot,Ratings} = this.props.movie;
-      const {fav} = this.props.store.store.getState();
+      console.log(this.props.store.movies);
+      console.log("moviescart",this.props.store);
+      const {fav} = this.props.store.store.getState().movies;
       
     return (
         <div className="movie-cart">

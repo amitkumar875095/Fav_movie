@@ -27,8 +27,9 @@ changeTab = (val)=>{
 
   render(){
     console.log("render")
+   const {movies} = this.props.store.getState();
    
-  const {list,istrue,fav} =   this.props.store.getState();
+  const {list,istrue,fav} =   movies;
     const display = istrue ? fav : list;
   return (
     <div className="App">

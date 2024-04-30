@@ -1,11 +1,12 @@
 import { ADD_MOVIES , FAV_MOVIE,UN_FAV, SHOW_FAV} from "../actions";
+import { combineReducers } from "redux";
 
-const initialState = {
+const initialMovieState = {
     list : [],
     fav : [],
     istrue : false,
 }
-export default function movies (state = initialState,action){
+export  function movies (state = initialMovieState,action){
    
      switch (action.type){
          case ADD_MOVIES :
@@ -32,9 +33,29 @@ export default function movies (state = initialState,action){
             ...state,
             istrue : action.istrue,
            }
-         default :
+        default :           
          return state   
      }
+     
     }
    
-
+const initialSearchState = {
+     result : {},
+}
+export function search (state = initialSearchState,action){
+    return state;
+}
+const initialRootState = {
+    movies : initialMovieState,
+    search : initialSearchState,
+};
+// export  default function rootReducer(state = initialRootState,action){
+//     return {
+//         movies : movies(state.movies,action),
+//         search : search(state.search,action),
+//     }
+// }
+export default combineReducers({
+    movies : movies,
+    search : search,
+})
