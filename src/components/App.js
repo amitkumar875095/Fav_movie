@@ -2,7 +2,7 @@ import React from "react";
  import {data} from '../data'
 import Navbar from './Navbar'
 import MovieCard from './MovieCard'
-
+import { StoreContext } from "../index";
 import { addMovies,showFavourite } from "../actions";
 
 class  App extends React.Component {
@@ -26,14 +26,14 @@ changeTab = (val)=>{
 }
 
   render(){
-    console.log("render")
-   const {movies} = this.props.store.getState();
-   
+    console.log("render",this.props)
+   const {movies,search} = this.props.store.getState();
+     
   const {list,istrue,fav} =   movies;
     const display = istrue ? fav : list;
   return (
     <div className="App">
-     <Navbar />
+     <Navbar store = {this.props} search = {search}/>
      <div className="main" >
       <div className="tabs">
          <div className= {istrue? 'tab': 'tab active-tab'} onClick={()=>{ this.changeTab(false)
@@ -57,5 +57,13 @@ changeTab = (val)=>{
     </div>
   );
 }}
-
-export default App;
+class AppWrapper extends React.Component{
+  render(){
+    return(
+      <StoreContext.Consumer>
+        {(store)=> <App store = {store}/>}
+      </StoreContext.Consumer>
+    )
+  }
+}
+export default AppWrapper;
